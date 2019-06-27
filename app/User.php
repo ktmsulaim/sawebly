@@ -28,12 +28,13 @@ class User extends Authenticatable
       return $this->belongsTo('App\Role');
     }
 
+    public function photo(){
+        return $this->belongsTo('App\Photo');
+    }
+
     public static function getNameAttribute($value){
         return ucfirst($value);
     }
 
-    public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt($value);
-    }
 
 }

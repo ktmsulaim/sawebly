@@ -40,8 +40,8 @@
     </div>
     <div class="row">
       <div class="form-group col-md-5">
-        {!! Form::label('file', 'Photo:', ['class'=>'control-form']) !!}
-        {!! Form::file('file', ['class'=>'form-control-file']) !!}
+        {!! Form::label('photo_id', 'Photo:', ['class'=>'control-form']) !!}
+        {!! Form::file('photo_id', ['class'=>'form-control-file']) !!}
 
       </div>
     </div>
