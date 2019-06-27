@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
+@section('page-head')
+  Admin
+
+@stop
 
 @section('content')
-<h1 class="page-header">Admin</h1>
+
+<p>Welcome to SA Webly!</p>
 @endsection
