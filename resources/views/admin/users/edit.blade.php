@@ -5,8 +5,18 @@
 @stop
 @section('content')
   <div class="col-lg-3">
-      <img src="{{$user->photo ? $user->photo->file : '/images/user.png'}}" alt="" class="img-responsive img-rounded">
+    <legend>
+        <img src="{{$user->photo ? $user->photo->file : '/images/user.png'}}" alt="" class="img-responsive img-rounded">
+    </legend>
+      
       @include('includes.form_error')
+
+      <div class="row">
+          {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id]]) !!}
+            {!! Form::submit('Delete', ['class'=>'btn btn-danger col-sm-12']) !!}
+          {!! Form::close() !!}
+      </div>
+    
     </div>
   <div class="col-lg-9">
     {!! Form::model($user,['method'=>'PATCH', 'action'=>['AdminUsersController@update', $user->id], 'files'=>true]) !!}
@@ -54,9 +64,13 @@
     </div>
 
   {!! Form::close() !!}
+
+  
+
+
+ 
   </div>
   <div class="clearfix"></div>
-
 
 @stop
 

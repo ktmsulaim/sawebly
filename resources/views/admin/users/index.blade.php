@@ -1,10 +1,42 @@
 @extends('layouts.admin')
 
+
+
 @section('page-head')
   Users
 @stop
 
+
 @section('content')
+
+  <div>
+      @if(Session::has('deleted_user') || Session::has('created_user') || Session::has('updated_user'))
+      <div class="errors">
+        <div class="alert alert-success" role="alert">
+          <strong>success</strong> 
+        
+
+            @if(Session::has('deleted_user'))
+
+            {{session('deleted_user')}}
+
+            @elseif(Session::has('created_user'))
+
+            {{session('created_user')}}
+
+            @elseif(Session::has('updated_user'))
+
+            {{session('updated_user')}}
+
+            @endif
+      
+        
+        </div>
+      </div>
+      @endif
+  </div>
+
+
   @if($users)
   <table class="table table-striped">
     <thead>

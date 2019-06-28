@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use \Illuminate\Support\Facades\Session;
+
 use App\Http\Requests;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\UsersEditRequest;
@@ -66,7 +68,11 @@ class AdminUsersController extends Controller
         }
 
        
-        User::create($input);
+        $user = User::create($input);
+
+        $created_msg = "The user ". $user->name .' has been created';
+
+        Session::flash('created_user', $created_msg);
 
         return redirect('/admin/users');
         
@@ -114,8 +120,8 @@ class AdminUsersController extends Controller
         if(trim($request->password == '')){
             $input = $request->except('password');
         }else{
-            $input['password'] = bcrypt($request->password);
             $input = $request->all();
+            $input['password'] = bcrypt($request->password);
         }
 
         if($file = $request->file('photo_id')){
@@ -130,6 +136,10 @@ class AdminUsersController extends Controller
 
         $user->update($input);
 
+        $updated_msg = "The user ". $user->name . " has been updated";
+
+        Session::flash('updated_user', $updated_msg);
+
         return redirect('/admin/users');
     }
 
@@ -142,5 +152,19 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::findOrFail($id);
+
+        $deleted_msg = "The user ".$user->name . " has been deleted";
+
+        // Delete user image from directory
+
+        unlink(public_path(). $user->photo->file);
+
+        $user->delete();
+
+
+        Session::flash('deleted_user', $deleted_msg);
+
+        return redirect('/admin/users');
     }
 }
