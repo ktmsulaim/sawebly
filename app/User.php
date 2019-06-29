@@ -32,6 +32,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Photo');
     }
 
+    public function post(){
+        return $this->hasMany('App\Post');
+    }
+
     public static function getNameAttribute($value){
         return ucfirst($value);
     }
